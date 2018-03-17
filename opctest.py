@@ -2,6 +2,8 @@
 from http.server import BaseHTTPRequestHandler,HTTPServer
 import json
 import OpenOPC
+from urllib.parse import urlparse, parse_qs
+
 opc = OpenOPC.client()
 opc.connect('Matrikon.OPC.Simulation')
 PORT_NUMBER = 8080
@@ -14,8 +16,11 @@ class myHandler(BaseHTTPRequestHandler):
 		self.send_response(200)
 		self.send_header('Content-type','application/json')
 		self.end_headers()
+		#GET query content
+		query_components = parse_qs(urlparse(self.path).query)
+		data = query_components["data"]
 		# Send the html message
-		self.wfile.write(json.dumps({"name":opc['Bucket Brigade.Int1'],"port":"7766","data":"adad"}).encode())
+		self.wfile.write(json.dumps({"name":opc[data],"port":"7766","data":"adad"}).encode())
 		return
 
 try:
