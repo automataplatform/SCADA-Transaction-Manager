@@ -5,7 +5,7 @@ import OpenOPC
 from urllib.parse import urlparse, parse_qs
 
 opc = OpenOPC.client()
-opc.connect('RSLinx OPC Server')
+opc.connect('Kepware.KEPServerEnterprise.V5')
 PORT_NUMBER = 8080
 tags=['Inlet_Nitrogen','Inlet_Methane','Inlet_CO2','Inlet_Ethane','Inlet_C5','Inlet_Propane','Inlet_IButane','Inlet_NButane','Inlet_Vapour_Pressure','Inlet_BTU','Inlet_Gas_SG','Inlet_Compressibility','Inlet_Gallons_MSCF','Inlet_Molecular_Weight','Residue_Nitrogen','Residue_Methane','Residue_CO2','Residue_Ethane','Residue_C5','Residue_Propane','Residue_IButane','Residue_NButane','Residue_Vapour_Pressure','Residue_BTU','Residue_Gas_SG','Residue_Compressibility','Residue_Gallons_MSCF','Residue_Molecular_Weight']
 target_tags=[]
