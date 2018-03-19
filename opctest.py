@@ -5,7 +5,7 @@ import OpenOPC
 from urllib.parse import urlparse, parse_qs
 
 opc = OpenOPC.client()
-opc.connect('Kepware.KEPServerEnterprise.V5')
+opc.connect('Kepware.KEPServerEX.V6')
 PORT_NUMBER = 8080
 tags=["Inlet_BTU","Inlet_C5","Inlet_CO2","Inlet_Compressibility","Inlet_Ethane","Inlet_Gallons_MSCF","Inlet_Gas_SG","Inlet_IButane","Inlet_Methane","Inlet_Molecular_Weight","Inlet_NButane","Inlet_Nitrogen","Inlet_Propane","Inlet_Vapour_Pressure","Residue_BTU","Residue_C5","Residue_CO2","Residue_Compressibility","Residue_Ethane","Residue_Gallons_MSCF","Residue_Gas_SG","Residue_IButane","Residue_Methane","Residue_Molecular_Weight","Residue_NButane","Residue_Nitrogen","Residue_Propane","Residue_Vapour_Pressure","Tag1","Tag2",]
 target_tags=[]
@@ -26,8 +26,11 @@ class myHandler(BaseHTTPRequestHandler):
 		#	self.wfile.write(json.dumps({"name":opc.read(data), "port":"7766", "data":"adad"}).encode())
 		#else:
 		for tag in tags:
-			target_tags.append(opc.read("Channel1.Device1."+tag))
-		self.wfile.write(json.dumps({"name":target_tags, "port":"7766", "data":"adad"}).encode())
+			tempArr=[]
+			tempArr.append(tag)
+			tempArr.append(opc.read("Channel1.Device1."+tag))
+			target_tags.append(tempArr)
+		self.wfile.write(json.dumps({"data":target_tags}).encode())
 		# Send the html message
 		return
 
