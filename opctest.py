@@ -28,7 +28,7 @@ class myHandler(BaseHTTPRequestHandler):
 		for tag in tags:
 			tempArr=[]
 			tempArr.append(tag)
-			tempArr.append(opc.read("Channel1.Device1."+tag))
+			tempArr.append(opc.read("Channel1.Device1."+tag)[0])
 			target_tags.append(tempArr)
 		self.wfile.write(json.dumps({"data":target_tags}).encode())
 		# Send the html message
