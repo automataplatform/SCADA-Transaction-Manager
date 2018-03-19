@@ -20,8 +20,9 @@ class myHandler(BaseHTTPRequestHandler):
 		self.end_headers()
 		#GET query content
 		query_components = parse_qs(urlparse(self.path).query)
-		data = query_components["data"]
-		if(data):
+		
+		if(query_components["data"]):
+			data = query_components["data"]
 			self.wfile.write(json.dumps({"name":opc.read(data), "port":"7766", "data":"adad"}).encode())
 		else:
 			for tag in tags:
